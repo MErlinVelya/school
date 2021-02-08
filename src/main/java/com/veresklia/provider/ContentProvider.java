@@ -1,8 +1,6 @@
 package com.veresklia.provider;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ContentProvider {
@@ -54,11 +52,12 @@ public class ContentProvider {
     private int numberOfNamesAvailable = 20;
     private int numberOfSurnamesAvailable = 20;
 
-    public Map<String, String> generateStudents (int studentsNumber){
-        Map<String, String> students = new HashMap<>();
-        for (int i=0; i<studentsNumber; i++) {
-            students.put(NAMES[generateRandomInt(numberOfNamesAvailable)], SURNAMES[generateRandomInt(numberOfSurnamesAvailable)]);
-        }
+    public List<String[]> generateStudents (int studentsNumber){
+        List<String[]> students = new ArrayList<>();
+        students.add(NAMES[generateRandomInt(numberOfNamesAvailable)], SURNAMES[generateRandomInt(numberOfSurnamesAvailable)]);
+        students.
+        //      students.add(new String[2] = {"ww", "dd"});
+
 
         return students;
     }
