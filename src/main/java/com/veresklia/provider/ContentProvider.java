@@ -57,12 +57,11 @@ public class ContentProvider {
     public String[] generateCources (int courcesNumber){
         StringBuilder resultedstring = new StringBuilder();
         String[] resultedArray = new String[courcesNumber];
-        Arrays.stream(resultedArray).forEach( string ->
-            string= resultedstring.append(RandomStringUtils.randomAlphabetic(2))
+        Arrays.stream(resultedArray).forEach( a -> a = new String(resultedstring.append(RandomStringUtils.randomAlphabetic(2))
                 .append("-")
                 .append(generateRandomInt(9))
                 .append(generateRandomInt(9))
-                .toString());
+                .toString()));
 
         return resultedArray ;
     }
