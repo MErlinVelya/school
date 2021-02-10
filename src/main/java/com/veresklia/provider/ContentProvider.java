@@ -51,17 +51,31 @@ public class ContentProvider {
             "Cheburashko",
             "NoguCherezZaborPerekidayko"
     };
+
+    private static final String[] COURCES = {
+        "Math",
+        "Biology",
+        "History",
+        "Geography",
+        "Literature",
+        "Ukrainian",
+        "English",
+        "IT",
+        "Java",
+        "Cooking"
+    };
     private int numberOfNamesAvailable = 20;
     private int numberOfSurnamesAvailable = 20;
 
-    public String[] generateCources (int courcesNumber){
-        StringBuilder resultedstring = new StringBuilder();
-        String[] resultedArray = new String[courcesNumber];
-        Arrays.stream(resultedArray).forEach( a -> a = new String(resultedstring.append(RandomStringUtils.randomAlphabetic(2))
-                .append("-")
-                .append(generateRandomInt(9))
-                .append(generateRandomInt(9))
-                .toString()));
+    public String[] generateGroups (int groupsNumder){
+        String[] resultedArray = new String [groupsNumder];
+
+        Arrays.setAll(resultedArray, a ->  resultedArray[a] = new StringBuilder()
+            .append(RandomStringUtils.randomAlphabetic(2))
+            .append("-")
+            .append(generateRandomInt(9))
+            .append(generateRandomInt(9))
+            .toString());
 
         return resultedArray ;
     }

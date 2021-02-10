@@ -16,7 +16,7 @@ public class SchoolConsoleApplication {
 //        students.forEach(a -> System.out.println(a[0] +" " + a[1]));
      //   System.out.println((char)90);
 
-        String[] cources = contentProvider.generateCources(10);
-        System.out.println(cources[1]);
+        String[] groups = contentProvider.generateGroups(10);
+        System.out.println(groups[9]);
     }
 }
