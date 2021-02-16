@@ -29,9 +29,11 @@ public class SchoolConsoleApplication {
 
         DatabiseFiller databiseFiller = new DatabiseFiller();
 
-            Connection con = databaseConnector.connect("jdbc:postgresql://localhost:5433/school", "postgres", "admin");
-           // databiseFiller.createTables(con);
-       databiseFiller.fillTables(con, contentProvider.generateGroups(10), contentProvider.getCourses(), contentProvider.generateStudents(200));
+           // Connection con = databaseConnector.connect("jdbc:postgresql://localhost:5433/school", "postgres", "admin");
+        Connection con = databaseConnector.connect("jdbc:postgresql://localhost:5432/school", "merlin", "");
+
+        //databiseFiller.createTables(con);
+      databiseFiller.fillTables(con, contentProvider.generateGroups(10), contentProvider.getCourses(), contentProvider.generateStudents(200));
 
 
 
