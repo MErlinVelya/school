@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 
 public class SchoolConsoleApplication {
 
-    public static void main(String[] args) {
-       // ContentProvider contentProvider = new ContentProvider();
+    public static void main(String[] args) throws SQLException {
+       ContentProvider contentProvider = new ContentProvider();
 //        Map<String, String> students = contentProvider.generateStudents(200);
 //        students.forEach((k, v) -> System.out.println(k + " " + v));
 //        List<String[]> students = contentProvider.generateStudents(200);
@@ -29,8 +29,9 @@ public class SchoolConsoleApplication {
 
         DatabiseFiller databiseFiller = new DatabiseFiller();
 
-            Connection con = databaseConnector.connect("jdbc:postgresql://localhost:5432/school", "merlin", "");
-            databiseFiller.createTables(con);
+            Connection con = databaseConnector.connect("jdbc:postgresql://localhost:5433/school", "postgres", "admin");
+           // databiseFiller.createTables(con);
+       databiseFiller.fillTables(con, contentProvider.generateGroups(10), contentProvider.getCourses(), contentProvider.generateStudents(200));
 
 
 

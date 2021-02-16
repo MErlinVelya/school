@@ -67,6 +67,11 @@ public class ContentProvider {
     private int numberOfNamesAvailable = 20;
     private int numberOfSurnamesAvailable = 20;
 
+    public String[] getCourses ()
+    {
+        return COURCES;
+    }
+
     public String[] generateGroups (int groupsNumder){
         String[] resultedArray = new String [groupsNumder];
 
