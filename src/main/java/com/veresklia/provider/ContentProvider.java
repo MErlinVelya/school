@@ -1,5 +1,6 @@
 package com.veresklia.provider;
 
+import com.veresklia.domain.Student;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.*;
@@ -99,6 +100,15 @@ public class ContentProvider {
 
     private int generateRandomInt (int limit){
         return  ThreadLocalRandom.current().nextInt(0, limit);
+    }
+
+    public List<Student> generateStudentsAllIn (int minInGroup, int maxInGroup, int minCourses, int maxCourses, int numberOfStudents){
+        List<String[]> names = generateStudents(numberOfStudents);
+        // = new String [groupsNumder];
+
+        List<Student> students = new ArrayList<>();
+       // students.add(new Student())
+
     }
 
 }
