@@ -1,5 +1,6 @@
 package com.veresklia.provider;
 
+import com.veresklia.domain.Group;
 import com.veresklia.domain.Student;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -73,15 +74,15 @@ public class ContentProvider {
         return COURCES;
     }
 
-    public String[] generateGroups (int groupsNumder){
-        String[] resultedArray = new String [groupsNumder];
+    public Group[] generateGroups (int groupsNumder){
+        Group[] resultedArray = new Group [groupsNumder];
 
-        Arrays.setAll(resultedArray, a ->  resultedArray[a] = new StringBuilder()
+        Arrays.setAll(resultedArray, a ->  resultedArray[a] = new Group(new StringBuilder()
             .append(RandomStringUtils.randomAlphabetic(2))
             .append("-")
-            .append(generateRandomInt(9))
-            .append(generateRandomInt(9))
-            .toString());
+            .append(generateRandomInt(0, 9))
+            .append(generateRandomInt(0, 9))
+            .toString(), generateRandomInt(10, 30) ));
 
         return resultedArray ;
     }
@@ -89,8 +90,8 @@ public class ContentProvider {
     public List<String[]> generateStudents (int studentsNumber){
         List<String[]> students = new ArrayList<>();
         for (int i = 0; i < studentsNumber; i++) {
-            students.add(new String[]{NAMES[generateRandomInt(numberOfNamesAvailable)],
-                SURNAMES[generateRandomInt(numberOfSurnamesAvailable)]});
+            students.add(new String[]{NAMES[generateRandomInt(0, numberOfNamesAvailable)],
+                SURNAMES[generateRandomInt(0, numberOfSurnamesAvailable)]});
         }
         //      students.add(new String[2] = {"ww", "dd"});
 
@@ -98,8 +99,8 @@ public class ContentProvider {
         return students;
     }
 
-    private int generateRandomInt (int limit){
-        return  ThreadLocalRandom.current().nextInt(0, limit);
+    private int generateRandomInt (int min, int limit){
+        return  ThreadLocalRandom.current().nextInt(min, limit);
     }
 
     public List<Student> generateStudentsAllIn (int minInGroup, int maxInGroup, int minCourses, int maxCourses, int numberOfStudents){
@@ -107,6 +108,7 @@ public class ContentProvider {
         // = new String [groupsNumder];
 
         List<Student> students = new ArrayList<>();
+
        // students.add(new Student())
 
     }
