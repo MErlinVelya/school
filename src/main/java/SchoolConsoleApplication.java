@@ -33,7 +33,7 @@ public class SchoolConsoleApplication {
         Connection con = databaseConnector.connect("jdbc:postgresql://localhost:5432/school", "merlin", "");
 
         //databiseFiller.createTables(con);
-      databiseFiller.fillTables(con, contentProvider.generateGroups(10), contentProvider.getCourses(), contentProvider.generateStudents(200));
+      //databiseFiller.fillTables(con, contentProvider.generateGroups(10), contentProvider.getCourses(), contentProvider.generateStudents(200));
 
 
 

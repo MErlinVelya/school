@@ -5,9 +5,12 @@ import java.util.Optional;
 public class Student {
     public String name;
     public String surname;
-    public Optional<String> group;
+    public String group;
     public String[] courses;
-    private Builder builder;
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     private Student () {};
 
@@ -18,37 +21,35 @@ public class Student {
         this.courses = builder.courses;
     }
 
-    public class Builder {
+    public static class Builder {
         public String name;
         public String surname;
-        public Optional<String> group;
+        public String group;
         public String[] courses;
 
-        public Builder() {
-            new Builder();
-        }
+        private Builder() { }
 
-        Builder withName (String name){
+        public Builder withName (String name){
             this.name = name;
             return this;
         }
 
-        Builder withSurname (String surname){
+        public Builder withSurname (String surname){
             this.surname = surname;
             return this;
         }
 
-        Builder withGroup (Optional<String> group){
+        public Builder withGroup (String group){
             this.group = group;
             return this;
         }
 
-        Builder withCourses (String[] courses){
+        public Builder withCourses (String[] courses){
             this.courses = courses;
             return this;
         }
 
-        Student build (){
+        public Student build (){
             return new Student(this);
         }
 

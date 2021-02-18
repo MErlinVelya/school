@@ -3,6 +3,7 @@ package com.veresklia.provider;
 import com.veresklia.domain.Group;
 import com.veresklia.domain.Student;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -55,43 +56,42 @@ public class ContentProvider {
     };
 
     private static final String[] COURCES = {
-        "Math",
-        "Biology",
-        "History",
-        "Geography",
-        "Literature",
-        "Ukrainian",
-        "English",
-        "IT",
-        "Java",
-        "Cooking"
+            "Math",
+            "Biology",
+            "History",
+            "Geography",
+            "Literature",
+            "Ukrainian",
+            "English",
+            "IT",
+            "Java",
+            "Cooking"
     };
     private int numberOfNamesAvailable = 20;
     private int numberOfSurnamesAvailable = 20;
 
-    public String[] getCourses ()
-    {
+    public String[] getCourses() {
         return COURCES;
     }
 
-    public Group[] generateGroups (int groupsNumder){
-        Group[] resultedArray = new Group [groupsNumder];
+    public Group[] generateGroups(int groupsNumder, int minStudents, int maxStudents) {
+        Group[] resultedArray = new Group[groupsNumder];
 
-        Arrays.setAll(resultedArray, a ->  resultedArray[a] = new Group(new StringBuilder()
-            .append(RandomStringUtils.randomAlphabetic(2))
-            .append("-")
-            .append(generateRandomInt(0, 9))
-            .append(generateRandomInt(0, 9))
-            .toString(), generateRandomInt(10, 30) ));
+        Arrays.setAll(resultedArray, a -> resultedArray[a] = new Group(new StringBuilder()
+                .append(RandomStringUtils.randomAlphabetic(2))
+                .append("-")
+                .append(generateRandomInt(0, 9))
+                .append(generateRandomInt(0, 9))
+                .toString(), generateRandomInt(minStudents, maxStudents)));
 
-        return resultedArray ;
+        return resultedArray;
     }
 
-    public List<String[]> generateStudents (int studentsNumber){
+    public List<String[]> generateStudents(int studentsNumber) {
         List<String[]> students = new ArrayList<>();
         for (int i = 0; i < studentsNumber; i++) {
             students.add(new String[]{NAMES[generateRandomInt(0, numberOfNamesAvailable)],
-                SURNAMES[generateRandomInt(0, numberOfSurnamesAvailable)]});
+                    SURNAMES[generateRandomInt(0, numberOfSurnamesAvailable)]});
         }
         //      students.add(new String[2] = {"ww", "dd"});
 
@@ -99,18 +99,52 @@ public class ContentProvider {
         return students;
     }
 
-    private int generateRandomInt (int min, int limit){
-        return  ThreadLocalRandom.current().nextInt(min, limit);
+    private int generateRandomInt(int min, int limit) {
+        return ThreadLocalRandom.current().nextInt(min, limit);
     }
 
-    public List<Student> generateStudentsAllIn (int minInGroup, int maxInGroup, int minCourses, int maxCourses, int numberOfStudents){
-        List<String[]> names = generateStudents(numberOfStudents);
-        // = new String [groupsNumder];
+    public List<Student> generateStudentsAllIn(int minInGroup, int maxInGroup, int minCourses, int maxCourses, int numberOfStudents) {
 
+        Group[] groups = generateGroups(10, minInGroup, maxInGroup);
         List<Student> students = new ArrayList<>();
+        List<String[]> studentsNames = generateStudents(200);
 
-       // students.add(new Student())
+        for (String[] studentName : studentsNames) {
+            students.add(Student.builder()
+                    .withName(studentName[0])
+                    .withSurname(studentName[1])
+                    .withGroup(groupAssignement(groups))
+                    .withCourses(coursesAssignement(minCourses, maxCourses)).
+                    build());
+        }
 
+        return students;
+
+    }
+
+
+    private String groupAssignement (Group[] groups) {
+        String group = "";
+
+        for (int i = 0; i < groups.length; i++) {
+            if(groups[i].studentsquantity > 0) {
+                group = groups[i].group;
+                groups[i].studentsquantity--;
+                break;
+            }
+        }
+        return group;
+    }
+
+    private String[] coursesAssignement (int minCources, int maxCourses){
+        int courcesNumber = generateRandomInt(minCources - 1 ,maxCourses - 1);
+        String[] courses = new String[courcesNumber];
+
+        for (int i = 0; i <= courcesNumber; i++ ){
+            courses[i] = COURCES[generateRandomInt(0,9)];
+        }
+
+        return courses;
     }
 
 }
