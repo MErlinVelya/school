@@ -1,9 +1,8 @@
-package com.veresklia.provider;
+package com.veresklia.domain.provider;
 
 import com.veresklia.domain.Group;
 import com.veresklia.domain.Student;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -55,7 +54,7 @@ public class ContentProvider {
             "NoguCherezZaborPerekidayko"
     };
 
-    private static final String[] COURCES = {
+    private static final String[] COURSES = {
             "Math",
             "Biology",
             "History",
@@ -71,7 +70,7 @@ public class ContentProvider {
     private int numberOfSurnamesAvailable = 20;
 
     public String[] getCourses() {
-        return COURCES;
+        return COURSES;
     }
 
     public Group[] generateGroups(int groupsNumder, int minStudents, int maxStudents) {
@@ -93,8 +92,6 @@ public class ContentProvider {
             students.add(new String[]{NAMES[generateRandomInt(0, numberOfNamesAvailable)],
                     SURNAMES[generateRandomInt(0, numberOfSurnamesAvailable)]});
         }
-        //      students.add(new String[2] = {"ww", "dd"});
-
 
         return students;
     }
@@ -141,7 +138,7 @@ public class ContentProvider {
         String[] courses = new String[courcesNumber];
 
         for (int i = 0; i <= courcesNumber; i++ ){
-            courses[i] = COURCES[generateRandomInt(0,9)];
+            courses[i] = COURSES[generateRandomInt(0,9)];
         }
 
         return courses;

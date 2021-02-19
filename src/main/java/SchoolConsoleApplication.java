@@ -1,16 +1,11 @@
 
 
-import com.veresklia.connector.DatabaseConnector;
-import com.veresklia.provider.ContentProvider;
-import com.veresklia.provider.DatabiseFiller;
+import com.veresklia.dao.connector.DatabaseConnector;
+import com.veresklia.domain.provider.ContentProvider;
+import com.veresklia.dao.DatabiseFiller;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SchoolConsoleApplication {
 

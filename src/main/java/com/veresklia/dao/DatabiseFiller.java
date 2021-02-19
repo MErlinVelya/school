@@ -1,4 +1,4 @@
-package com.veresklia.provider;
+package com.veresklia.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

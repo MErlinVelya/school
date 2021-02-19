@@ -1,4 +1,4 @@
-package com.veresklia.connector;
+package com.veresklia.dao.connector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
