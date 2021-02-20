@@ -79,8 +79,8 @@ public class ContentProvider {
         Arrays.setAll(resultedArray, a -> resultedArray[a] = new Group(new StringBuilder()
                 .append(RandomStringUtils.randomAlphabetic(2))
                 .append("-")
-                .append(generateRandomInt(0, 9))
-                .append(generateRandomInt(0, 9))
+                .append(generateRandomInt(0, 10))
+                .append(generateRandomInt(0, 10))
                 .toString(), generateRandomInt(minStudents, maxStudents)));
 
         return resultedArray;
@@ -97,7 +97,7 @@ public class ContentProvider {
     }
 
     private int generateRandomInt(int min, int limit) {
-        return ThreadLocalRandom.current().nextInt(min, limit);
+        return ThreadLocalRandom.current().nextInt(min, limit  );
     }
 
     public List<Student> generateStudentsAllIn(int minInGroup, int maxInGroup, int minCourses, int maxCourses, int numberOfStudents) {
@@ -134,11 +134,11 @@ public class ContentProvider {
     }
 
     private String[] coursesAssignement (int minCources, int maxCourses){
-        int courcesNumber = generateRandomInt(minCources - 1 ,maxCourses - 1);
+        int courcesNumber = generateRandomInt(minCources ,maxCourses + 1 );
         String[] courses = new String[courcesNumber];
 
-        for (int i = 0; i <= courcesNumber; i++ ){
-            courses[i] = COURSES[generateRandomInt(0,9)];
+        for (int i = 0; i < courcesNumber; i++ ){
+            courses[i] = COURSES[generateRandomInt(0,10)];
         }
 
         return courses;
