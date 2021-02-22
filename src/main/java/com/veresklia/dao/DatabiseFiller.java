@@ -11,10 +11,14 @@ public class DatabiseFiller {
    public void createTables (Connection connection){
         String createTables = new StringBuilder()
             .append("DROP TABLE IF EXISTS groups, students, courses, enrollments;")
+
             .append("CREATE TABLE groups (group_id SERIAL PRIMARY KEY, group_name varchar);")
+
             .append("CREATE TABLE students (student_id SERIAL PRIMARY KEY, group_id int, first_name varchar, last_name varchar, ")
             .append("FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE SET NULL);")
+
             .append("CREATE TABLE courses (course_id SERIAL PRIMARY KEY, course_name varchar, course_description varchar);")
+
             .append("CREATE TABLE enrollments (enrollment_id SERIAL PRIMARY KEY, course_id int NOT NULL, student_id int NOT NULL, ")
             .append("FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE, ")
             .append("FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE);")
@@ -29,7 +33,8 @@ public class DatabiseFiller {
 
     public void fillTables (Connection connection, String[] groups, String[] courses,  List<String[]> students) throws SQLException {
        String fillGroups = "INSERT INTO groups (group_name) VALUES(?)";
-       String fillCourses = "INSERT INTO courses (course_name, course_description) VALUES(?, ?)";
+       String fillCourses = "INSERT INTO courses (course_name, course_description) VALUES (?, ?)";
+       String fillStudents = "INSERT INTO students (group_id, first_name, last_name) VALUES (?, ?, ?)";
 
 
             for (String group : groups){
@@ -45,8 +50,11 @@ public class DatabiseFiller {
                     preparedStatement.setString(2, course);
                     preparedStatement.execute();
                 }
-
             }
+
+            for (String[] student : students){
+                PreparedStatement preparedStatement = connection.prepareStatement(fillStudents);
+                preparedStatement.setI
 
 
     }
