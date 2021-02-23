@@ -13,9 +13,12 @@ public class Student {
         return new Builder();
     }
 
-    private Student () {};
+    private Student() {
+    }
 
-    public Student (Builder builder){
+    ;
+
+    public Student(Builder builder) {
         this.name = builder.name;
         this.surname = builder.surname;
         this.group = builder.group;
@@ -23,8 +26,8 @@ public class Student {
     }
 
     @Override
-    public String toString (){
-        String addCources ="";
+    public String toString() {
+        String addCources = "";
         for (String course : courses) {
             addCources += course + " ";
         }
@@ -43,29 +46,30 @@ public class Student {
         public String group;
         public String[] courses;
 
-        private Builder() { }
+        private Builder() {
+        }
 
-        public Builder withName (String name){
+        public Builder withName(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder withSurname (String surname){
+        public Builder withSurname(String surname) {
             this.surname = surname;
             return this;
         }
 
-        public Builder withGroup (String group){
+        public Builder withGroup(String group) {
             this.group = group;
             return this;
         }
 
-        public Builder withCourses (String[] courses){
+        public Builder withCourses(String[] courses) {
             this.courses = courses;
             return this;
         }
 
-        public Student build (){
+        public Student build() {
             return new Student(this);
         }
 
