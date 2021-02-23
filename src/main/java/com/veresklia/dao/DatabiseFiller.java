@@ -1,5 +1,8 @@
 package com.veresklia.dao;
 
+import com.veresklia.domain.Group;
+import com.veresklia.domain.Student;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -31,15 +34,16 @@ public class DatabiseFiller {
         }
     }
 
-    public void fillTables (Connection connection, String[] groups, String[] courses,  List<String[]> students) throws SQLException {
+    public void fillTables (Connection connection, Group[] groups, String[] courses, List<Student> students) throws SQLException {
        String fillGroups = "INSERT INTO groups (group_name) VALUES(?)";
        String fillCourses = "INSERT INTO courses (course_name, course_description) VALUES (?, ?)";
-       String fillStudents = "INSERT INTO students (group_id, first_name, last_name) VALUES (?, ?, ?)";
+       String fillStudents = "INSERT INTO students (group_id, first_name, last_name) VALUES (SELECT group_id FROM groups " +
+               "WHERE group_name=?, ?, ?)";
 
 
-            for (String group : groups){
+            for (Group group : groups){
                 try (PreparedStatement preparedStatement = connection.prepareStatement(fillGroups)) {
-                    preparedStatement.setString(1, group);
+                    preparedStatement.setString(1, group.group);
                     preparedStatement.execute();
                 }
             }
@@ -52,9 +56,14 @@ public class DatabiseFiller {
                 }
             }
 
-            for (String[] student : students){
-                PreparedStatement preparedStatement = connection.prepareStatement(fillStudents);
-                preparedStatement.setI
+            for (Student student : students){
+                try (PreparedStatement preparedStatement = connection.prepareStatement(fillStudents)) {
+                    preparedStatement.setString(1, student.group);
+                    preparedStatement.setString(2, student.name);
+                    preparedStatement.setString(3, student.surname);
+                    preparedStatement.execute();
+                }
+            }
 
 
     }
