@@ -3,17 +3,14 @@ package com.veresklia.dao;
 import com.veresklia.domain.Group;
 import com.veresklia.domain.Student;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class DatabiseFiller {
 
     public void createTables(Connection connection) {
         String createTables = new StringBuilder()
-            .append("DROP TABLE IF EXISTS groups, cources, students, courses, enrollments;")
+            .append("DROP TABLE IF EXISTS groups, students, courses, enrollments;")
 
             .append("CREATE TABLE groups (group_id SERIAL PRIMARY KEY, group_name varchar);")
 
@@ -40,7 +37,7 @@ public class DatabiseFiller {
         String fillStudents = "INSERT INTO students (group_id, first_name, last_name) VALUES ((SELECT group_id FROM groups " +
             "WHERE group_name=?), ?, ?)";
         String fillEnrollments = "INSERT INTO enrollments (course_id, student_id) VALUES ((SELECT course_id FROM courses " +
-            "WHERE course_name=?), (SELECT student_id FROM students WHERE first_name=? AND last_name=? LIMIT 1))";
+                "WHERE course_name=?), (SELECT student_id FROM students WHERE student_id = ?))";
 
 
         for (Group group : groups) {
@@ -59,22 +56,26 @@ public class DatabiseFiller {
         }
 
         for (Student student : students) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(fillStudents)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(fillStudents, Statement.RETURN_GENERATED_KEYS)) {
+                int studentId = -1;
                 preparedStatement.setString(1, student.group);
                 preparedStatement.setString(2, student.name);
                 preparedStatement.setString(3, student.surname);
                 preparedStatement.execute();
-            }
-        }
-
-        for (Student student : students) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(fillEnrollments)) {
-                for (String course : student.courses) {
-                    preparedStatement.setString(1, course);
-                    preparedStatement.setString(2, student.name);
-                    preparedStatement.setString(3, student.surname);
-                    preparedStatement.execute();
+                ResultSet studentIdSet = preparedStatement.getGeneratedKeys();
+                while (studentIdSet.next()){
+                    studentId = studentIdSet.getInt(1);
                 }
+
+                try (PreparedStatement preparedStatementEnrollments = connection.prepareStatement(fillEnrollments)) {
+                    for (String course : student.courses) {
+                        preparedStatementEnrollments.setString(1, course);
+                        preparedStatementEnrollments.setInt(2, studentId);
+                        preparedStatementEnrollments.execute();
+                    }
+                }
+
+
             }
         }
     }
