@@ -1,5 +1,6 @@
 
 
+import com.veresklia.controller.InterfaceProvider;
 import com.veresklia.dao.connector.DatabaseConnector;
 import com.veresklia.domain.Group;
 import com.veresklia.domain.provider.ContentProvider;
@@ -21,5 +22,7 @@ public class SchoolConsoleApplication {
         Group[] groups = contentProvider.generateGroups(10, 10, 30);
 
         databiseFiller.fillTables(con, groups, contentProvider.getCourses(), contentProvider.generateStudentsAllIn(groups, 1, 3, 200));
+        InterfaceProvider interfaceProvider = new InterfaceProvider();
+        interfaceProvider.provideInterface();
     }
 }
