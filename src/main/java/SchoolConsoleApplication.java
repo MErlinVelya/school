@@ -1,5 +1,6 @@
 
 
+import com.veresklia.controller.InterfaceProvider;
 import com.veresklia.dao.connector.DatabaseConnector;
 import com.veresklia.domain.Group;
 import com.veresklia.domain.Student;
