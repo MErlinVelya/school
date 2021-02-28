@@ -15,21 +15,32 @@
         <junit-jupiter-params.version>5.7.0</junit-jupiter-params.version>
         <hamcrest.version>2.2</hamcrest.version>
         <mockito.version>3.6.0</mockito.version>
+        <postgresql.version>42.2.18</postgresql.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <ibatis-sqlmap.version>2.3.4.726</ibatis-sqlmap.version>
+        <ibatis-core.version>3.0</ibatis-core.version>
+        <slf4j-api.version>1.7.28</slf4j-api.version>
+        <log4j-over-slf4j.version>1.7.30</log4j-over-slf4j.version>
+        <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version>
+        <slf4j-simple.version>1.7.30</slf4j-simple.version>
+        <HikariCP.version>3.4.5</HikariCP.version>
+        <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+        <h2.version>1.4.200</h2.version>
     </properties>
-    <name>Statistics</name>
+    <name>School</name>
 
     <dependencies>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.18</version>
+            <version>${postgresql.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
@@ -68,11 +79,37 @@
         </dependency>
 
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit-jupiter-params.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${HikariCP.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-sqlmap</artifactId>
+            <version>${ibatis-sqlmap.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-core</artifactId>
+            <version>${ibatis-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -96,7 +133,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.6</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
 
                     <execution>
@@ -120,7 +157,10 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>com/veresklia/statistics/StatisticsConsoleApplication*</exclude>
+                                <exclude>**/entity/**/*</exclude>
+                                <exclude>**/entity/*</exclude>
+                                <exclude>**/DatabaseFiller*</exclude>
+                                <exclude>**/SchoolConsoleApplication*</exclude>
                             </excludes>
                             <rules>
                                 <rule>
@@ -129,7 +169,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>1.0</minimum>
+                                            <minimum>0.99</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -154,7 +194,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.veresklia.statistics.StatisticsConsoleApplication
+                                        com.veresklia.SchoolConsoleApplication
                                     </mainClass>
                                 </manifest>
                             </archive>
